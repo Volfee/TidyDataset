@@ -15,26 +15,25 @@ require(dplyr)
 ################################
 
 #Read table of names
-setwd("~/studia/arrrr/cursera/cleaning data/getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset")
-features <- read.table(".getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/features.txt")
+features <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/features.txt")
 
 #Read table - id_subject
-id_subject <- read.table("./train/subject_train.txt")
+id_subject <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/train/subject_train.txt")
 names(id_subject) <- "id_subject"
 
 #Read table - id_activity
-activity <- read.table("./train/y_train.txt")
+activity <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt")
 names(activity) <- "activity"
 
 #Read table - data
-data <- read.table("./train/X_train.txt")
+data <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/train/X_train.txt")
 names(data) <- make.unique(as.character(features$V2))
 
 # Create data.frame
 dirtyDatabase <- data.frame(c(id_subject, activity, data))
 
 # Add activites by id & organize
-activities <- read.table("activity_labels.txt")
+activities <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/activity_labels.txt")
 dirtyDatabase <- merge(dirtyDatabase, activities, by.x="activity", by.y="V1", all = TRUE)
 dirtyDatabase <- mutate(dirtyDatabase, activity = V2)
 dirtyDatabase <- mutate(dirtyDatabase, dataSource = "train")
@@ -49,22 +48,22 @@ tidyDatabase1 <- select(dirtyDatabase, contains("id_subject"), contains("activit
 ################################
 
 #Read table - id_subject
-id_subject <- read.table("./test/subject_test.txt")
+id_subject <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/test/subject_test.txt")
 names(id_subject) <- "id_subject"
 
 #Read table - id_activity
-activity <- read.table("./test/y_test.txt")
+activity <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/test/y_test.txt")
 names(activity) <- "activity"
 
 #Read table - data
-data <- read.table("./test/X_test.txt")
+data <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/test/X_test.txt")
 names(data) <- make.unique(as.character(features$V2))
 
 # Create data.frame
 dirtyDatabase <- data.frame(c(id_subject, activity, data))
 
 # Add activites by id & organize
-activities <- read.table("activity_labels.txt")
+activities <- read.table("./getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/activity_labels.txt")
 dirtyDatabase <- merge(dirtyDatabase, activities, by.x="activity", by.y="V1", all = TRUE)
 dirtyDatabase <- mutate(dirtyDatabase, activity = V2)
 dirtyDatabase <- mutate(dirtyDatabase, dataSource = "test")
